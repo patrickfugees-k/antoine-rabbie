@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080807">
+<title>Antoine & Rabbie — Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#070706;--bg2:#11100d;--cream:#fbf6eb;--gold:#d9b56d;--gold2:#f2d99e;
+ --muted:#b8b1a5;--line:rgba(232,202,143,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#050505;color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.035;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+
+.loader{position:fixed;inset:0;background:#050504;z-index:2000;display:grid;place-items:center;transition:1s}
+.loader.hide{opacity:0;visibility:hidden}
+.loader-content{text-align:center}
+.loader-small{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);animation:fadeText 1.4s both}
+.loader-names{font-family:'Great Vibes',cursive;font-size:62px;color:var(--cream);margin-top:15px;animation:softZoom 1.5s both}
+.loader-line{width:75px;height:1px;background:var(--gold);margin:20px auto;animation:lineIn 1.5s both}
+@keyframes lineIn{from{width:0}to{width:75px}}
+@keyframes softZoom{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeText{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.music{
+position:fixed;right:14px;top:14px;width:46px;height:46px;border-radius:50%;z-index:100;
+border:1px solid var(--line);background:rgba(8,8,7,.72);backdrop-filter:blur(15px);
+color:var(--gold2);display:grid;place-items:center;box-shadow:0 12px 35px #000;cursor:pointer
+}
+.music.on:before,.music.on:after{content:"";position:absolute;border:1px solid rgba(217,181,109,.3);border-radius:50%;animation:musicPulse 2s linear infinite}
+.music.on:before{inset:-6px}.music.on:after{inset:-12px;animation-delay:.5s}
+@keyframes musicPulse{to{transform:scale(1.18);opacity:0}}
+
+.hero{
+min-height:100svh;position:relative;display:flex;align-items:center;justify-content:center;
+padding:45px 18px 70px;background:
+radial-gradient(circle at 50% 15%,rgba(217,181,109,.15),transparent 30%),
+linear-gradient(180deg,#090908,#11100e 58%,#070706);overflow:hidden
+}
+.hero-glow{position:absolute;width:330px;height:330px;border-radius:50%;background:rgba(217,181,109,.08);filter:blur(60px);top:4%;left:50%;transform:translateX(-50%);animation:glow 5s ease-in-out infinite}
+@keyframes glow{50%{transform:translateX(-50%) scale(1.22);opacity:.55}}
+.sparkles{position:absolute;inset:0;overflow:hidden}
+.spark{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.15;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:1;transform:scale(2)}}
+
+.hero-inner{width:min(470px,100%);text-align:center;position:relative;z-index:2}
+.topline{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold2);font-weight:700;animation:textUp 1s .3s both}
+.topline:before{content:"";display:inline-block;width:32px;height:1px;background:var(--gold);vertical-align:middle;margin-right:10px}
+.topline:after{content:"";display:inline-block;width:32px;height:1px;background:var(--gold);vertical-align:middle;margin-left:10px}
+
+.hero-photo{
+position:relative;width:min(88vw,365px);margin:35px auto 0;
+animation:photoReveal 1.25s .35s cubic-bezier(.16,1,.3,1) both
+}
+.photo-shell{position:relative;padding:8px;border:1px solid rgba(217,181,109,.48);background:linear-gradient(145deg,rgba(217,181,109,.12),rgba(255,255,255,.02))}
+.photo-shell:before{content:"";position:absolute;inset:-7px 7px 7px -7px;border:1px solid rgba(217,181,109,.28);pointer-events:none}
+.photo-shell:after{content:"";position:absolute;inset:7px -7px -7px 7px;border:1px solid rgba(255,255,255,.11);pointer-events:none}
+.photo-wrap{overflow:hidden;position:relative;aspect-ratio:4/5}
+.photo{
+width:100%;height:100%;display:block;object-fit:cover;
+transform:scale(1.04);animation:photoBreath 9s ease-in-out infinite alternate;
+filter:saturate(.88) contrast(1.05);
+}
+.photo-wrap:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.42));
+pointer-events:none
+}
+@keyframes photoReveal{from{opacity:0;transform:translateY(35px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes photoBreath{from{transform:scale(1.04) translate3d(0,0,0)}to{transform:scale(1.13) translate3d(-1.5%,1%,0)}}
+
+.photo-shine{
+position:absolute;z-index:4;top:-10%;left:-45%;width:28%;height:120%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);
+transform:skewX(-18deg);animation:shine 5.5s 1.7s infinite
+}
+@keyframes shine{0%,55%{left:-50%}75%,100%{left:125%}}
+
+.photo-caption{
+position:absolute;z-index:5;bottom:-18px;left:50%;transform:translateX(-50%);
+white-space:nowrap;background:#0c0b09;border:1px solid var(--line);padding:9px 15px;
+font-size:8px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase
+}
+
+.hero-names{margin-top:48px;font-family:'Great Vibes',cursive;font-size:68px;line-height:.9;color:var(--cream)}
+.hero-names .and{font-size:37px;color:var(--gold2);margin:0 4px}
+.hero-date{font-family:'Cormorant Garamond',serif;font-size:23px;margin-top:19px;animation:textUp 1s .9s both}
+.hero-place{font-size:9px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-top:8px;line-height:1.7;animation:textUp 1s 1.05s both}
+.hero-message{font-family:'Cormorant Garamond',serif;font-size:20px;line-height:1.5;color:#ddd7cd;margin:25px auto 0;max-width:390px;animation:textUp 1s 1.15s both}
+@keyframes textUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.enter{
+display:inline-flex;align-items:center;gap:12px;margin-top:28px;padding:14px 20px;border:1px solid var(--gold);
+color:var(--cream);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+background:linear-gradient(110deg,rgba(217,181,109,.2),rgba(217,181,109,.03));transition:.3s;animation:textUp 1s 1.3s both
+}
+.enter:active{transform:scale(.96);background:var(--gold);color:#111}
+
+.scroll{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:7px;letter-spacing:3px;color:#777067;text-transform:uppercase}
+.scroll i{display:block;width:1px;height:25px;background:var(--gold);margin:6px auto 0;animation:scrollLine 1.6s infinite}
+@keyframes scrollLine{50%{height:38px;opacity:.3}}
+
+.section{padding:82px 18px;background:var(--bg)}
+.section.alt{background:#0c0b09}
+.container{width:min(470px,100%);margin:auto}
+.kicker{text-align:center;color:var(--gold);font-size:8px;letter-spacing:4px;text-transform:uppercase;font-weight:700}
+.title{text-align:center;font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:500;line-height:.95;margin-top:13px}
+.title em{font-family:'Great Vibes',cursive;color:var(--gold2);font-style:normal;font-size:1.05em}
+.subtitle{text-align:center;color:var(--muted);font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.5;margin:17px auto 0}
+
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.show{opacity:1;transform:none}
+
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:38px;border:1px solid var(--line)}
+.count{background:#0a0a09;padding:21px 4px;text-align:center}
+.count b{display:block;font-family:'Cormorant Garamond',serif;font-size:37px;color:var(--gold2);font-weight:600}
+.count span{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#827b71}
+
+.cards{display:grid;gap:13px;margin-top:34px}
+.card{padding:27px 24px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--gold),transparent)}
+.card-icon{color:var(--gold2);font-size:22px;margin-bottom:12px}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:31px;font-weight:600}
+.card p{color:#c4beb4;font-size:13px;line-height:1.75;margin-top:8px}
+.card strong{color:#f5efe5}
+
+.message{padding:40px 12px;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.quote{font-family:'Cormorant Garamond',serif;font-size:27px;line-height:1.42}
+.quote:before{content:"“";display:block;font-family:Georgia;color:var(--gold);font-size:60px;height:40px}
+.signature{font-family:'Great Vibes',cursive;color:var(--gold2);font-size:42px;margin-top:18px}
+
+.location-card{margin-top:35px;border:1px solid var(--line);background:#0d0c0a}
+.location-top{padding:35px 25px;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(217,181,109,.13),transparent 55%)}
+.pin{font-size:39px;color:var(--gold2);animation:pinFloat 2.5s ease-in-out infinite}
+@keyframes pinFloat{50%{transform:translateY(-7px)}}
+.location-top small{display:block;color:#827c72;font-size:7px;letter-spacing:3px;margin-top:8px}
+.location-top strong{font-family:'Cormorant Garamond',serif;font-size:31px;display:block;margin-top:5px}
+.location-info{padding:25px;border-top:1px solid var(--line)}
+.location-info h3{font-family:'Cormorant Garamond',serif;font-size:34px}
+.location-info p{color:#c3bdb2;font-size:13px;line-height:1.8;margin-top:10px}
+.actions{display:grid;gap:10px;margin-top:20px}
+.btn{display:block;text-align:center;padding:14px;border:1px solid var(--line);font-size:9px;letter-spacing:2px;text-transform:uppercase}
+.btn:active{background:var(--gold);color:#111}
+
+.dress{margin-top:32px;text-align:center;padding:34px 20px;border:1px solid var(--line)}
+.dress-icon{font-size:30px;color:var(--gold2)}
+.dress h3{font-family:'Cormorant Garamond',serif;font-size:33px;margin-top:10px}
+.dress p{font-size:12px;color:var(--muted);margin-top:6px}
+
+.form{display:grid;gap:11px;margin-top:30px}
+.input,.select,.textarea{width:100%;background:#0c0b09;border:1px solid rgba(255,255,255,.13);color:#fff;padding:15px;border-radius:0;outline:none;font-size:13px}
+.textarea{min-height:120px;resize:vertical}
+.input:focus,.select:focus,.textarea:focus{border-color:var(--gold)}
+.submit{border:0;background:var(--gold);color:#111;padding:16px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer}
+.submit:active{transform:scale(.98)}
+
+.contacts{display:grid;gap:12px;margin-top:30px}
+.contact{padding:25px;text-align:center;border:1px solid var(--line)}
+.contact-name{font-family:'Cormorant Garamond',serif;font-size:31px}
+.contact-number{color:var(--gold2);font-size:13px;margin:6px 0 14px}
+.contact a{font-size:8px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--gold);padding-bottom:3px}
+
+footer{padding:65px 20px;text-align:center;background:#050505;border-top:1px solid rgba(217,181,109,.13)}
+.footer-names{font-family:'Great Vibes',cursive;font-size:58px;color:var(--gold2)}
+footer p{font-size:8px;letter-spacing:3px;color:#69635a;text-transform:uppercase;margin-top:10px}
+
+@media(min-width:700px){
+ .hero{padding-left:30px;padding-right:30px}
+ .hero-inner{width:760px}
+ .hero-photo{width:400px}
+ .cards{grid-template-columns:1fr 1fr}
+}
+
+/* COSMIC LOVE */
+.cosmic-love{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden;mix-blend-mode:screen}.love-particle{position:absolute;left:var(--x);top:var(--y);opacity:0;animation:loveFloat var(--dur) var(--delay) ease-in-out infinite}.love-particle.heart:before{content:"♥";color:var(--pc);font-size:var(--size);text-shadow:0 0 8px var(--pc),0 0 22px rgba(217,181,109,.5)}.love-particle.star{width:var(--size);height:var(--size);border-radius:50%;background:var(--pc);box-shadow:0 0 7px var(--pc),0 0 18px var(--pc)}.love-particle.diamond{width:var(--size);height:var(--size);background:var(--pc);transform:rotate(45deg);box-shadow:0 0 8px var(--pc)}@keyframes loveFloat{0%{opacity:0;transform:translateY(45px) scale(.35) rotate(0)}15%{opacity:.9}50%{opacity:.7;transform:translate(var(--dx),-35px) scale(1) rotate(120deg)}100%{opacity:0;transform:translate(calc(var(--dx)*1.8),-160px) scale(.3) rotate(250deg)}}.love-vortex{position:fixed;z-index:2;pointer-events:none;left:50%;top:38%;width:90vw;height:90vw;max-width:430px;max-height:430px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(217,181,109,.1),transparent 65%);animation:vortexPulse 5s ease-in-out infinite}.love-vortex:before,.love-vortex:after{content:"";position:absolute;inset:8%;border:1px solid rgba(217,181,109,.12);border-radius:50%;animation:orbit 13s linear infinite}.love-vortex:after{inset:20%;border-color:rgba(255,255,255,.08);animation-duration:9s;animation-direction:reverse}@keyframes vortexPulse{50%{transform:translate(-50%,-50%) scale(1.18);opacity:.4}}@keyframes orbit{to{transform:rotate(360deg)}}.hero-inner{z-index:5}.hero:after{content:"";position:absolute;inset:-25%;z-index:1;pointer-events:none;background:conic-gradient(from 0deg,transparent,rgba(217,181,109,.045),transparent 20%,rgba(255,255,255,.03),transparent 55%);animation:cosmicRotate 24s linear infinite}@keyframes cosmicRotate{to{transform:rotate(360deg)}}.hero-names{animation:nameFloat 5s ease-in-out infinite;text-shadow:0 0 30px rgba(217,181,109,.15)}@keyframes nameFloat{50%{transform:translateY(-4px);text-shadow:0 0 40px rgba(217,181,109,.3)}}.photo-shell{animation:photoGlow 4s ease-in-out infinite}@keyframes photoGlow{50%{box-shadow:0 0 40px rgba(217,181,109,.16)}}.card,.dress,.contact{transition:.55s}.card:hover,.dress:hover,.contact:hover{transform:translateY(-7px);border-color:rgba(242,217,158,.5);box-shadow:0 20px 55px rgba(0,0,0,.3),0 0 35px rgba(217,181,109,.08)}.card-icon{animation:heartSpark 2.6s ease-in-out infinite}@keyframes heartSpark{50%{transform:scale(1.18);text-shadow:0 0 20px rgba(217,181,109,.7)}}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+ <div class="loader-content">
+  <div class="loader-small">Une histoire à célébrer</div>
+  <div class="loader-names">Antoine &amp; Rabbie</div>
+  <div class="loader-line"></div>
+ </div>
+</div>
+
+<button class="music" id="musicBtn" aria-label="Musique">♪</button>
+<audio id="music" loop preload="auto" autoplay playsinline>
+ <source src="audio/amir-longtemps.mp3" type="audio/mpeg">
+</audio>
+
+<header class="hero">
+ <div class="hero-glow"></div>
+ <div class="sparkles" id="sparkles"></div><div class="cosmic-love" id="cosmicLove"></div><div class="love-vortex"></div>
+ <div class="hero-inner">
+  <div class="topline">Notre mariage</div>
+
+  <div class="hero-photo">
+   <div class="photo-shell">
+    <div class="photo-wrap">
+     <img class="photo" src="https://i.ibb.co/21t6x4ZC/3d82cc84-1519-45aa-a453-fe7a033526e3.jpg" alt="Antoine et Rabbie">
+     <div class="photo-shine"></div>
+    </div>
+   </div>
+   <div class="photo-caption">Notre histoire · 25.10.2026</div>
+  </div>
+
+  <div class="hero-names">Antoine <span class="and">&amp;</span> Rabbie</div>
+  <div class="hero-date">Dimanche 25 octobre 2026 · 18h00</div>
+  <div class="hero-place">Salle polyvalente Le Colisée · Boulevard Katumbi · Lubumbashi</div>
+  <p class="hero-message">Nous avons l'immense plaisir de vous inviter à partager avec nous un moment unique et précieux.</p>
+  <a class="enter" href="#invitation">Ouvrir l'invitation <span>↓</span></a>
+ </div>
+ <div class="scroll">Faire défiler<i></i></div>
+</header>
+
+<main id="invitation">
+<section class="section">
+ <div class="container">
+  <div class="reveal">
+   <div class="kicker">Le grand rendez-vous</div>
+   <div class="title">Un jour pour <em>s'aimer</em></div>
+   <p class="subtitle">Après avoir cheminé ensemble jusqu'à ce jour, nous souhaitons vivre cette belle étape entourés de ceux qui nous sont chers.</p>
+  </div>
+
+  <div class="countdown reveal">
+   <div class="count"><b id="days">--</b><span>Jours</span></div>
+   <div class="count"><b id="hours">--</b><span>Heures</span></div>
+   <div class="count"><b id="minutes">--</b><span>Minutes</span></div>
+   <div class="count"><b id="seconds">--</b><span>Secondes</span></div>
+  </div>
+
+  <div class="cards">
+   <article class="card reveal">
+    <div class="card-icon">✦</div><h3>Grande soirée</h3>
+    <p><strong>Dimanche 25 octobre 2026 · 18h00</strong><br>La grande soirée et la réception auront lieu au même endroit.</p>
+   </article>
+   <article class="card reveal">
+    <div class="card-icon">◇</div><h3>Réception</h3>
+    <p><strong>Salle polyvalente Le Colisée</strong><br>Boulevard Katumbi<br>Référence : Kin Marché / Monté Carlo</p>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="section alt">
+ <div class="container">
+  <div class="message reveal">
+   <div class="quote">Votre présence est notre plus beau cadeau. Venez partager avec nous cette soirée exceptionnelle, remplie d'amour, de joie, de rires et de beaux souvenirs.</div>
+   <div class="signature">Antoine &amp; Rabbie</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="container">
+  <div class="reveal">
+   <div class="kicker">Élégance &amp; raffinement</div>
+   <div class="title">Tenue de <em>soirée</em></div>
+   <p class="subtitle">Pour cette célébration particulière, nous vous invitons à privilégier une tenue chic et élégante.</p>
+  </div>
+  <div class="dress reveal">
+   <div class="dress-icon">♢</div><h3>Chic &amp; élégance</h3><p>Dress code : Tenue de soirée</p>
+  </div>
+ </div>
+</section>
+
+<section class="section alt">
+ <div class="container">
+  <div class="reveal">
+   <div class="kicker">Nous trouver</div>
+   <div class="title">Rendez-vous <em>au Colisée</em></div>
+  </div>
+  <div class="location-card reveal">
+   <div class="location-top">
+    <div class="pin">⌖</div><small>PLUS CODE</small><strong>8CP6+4H8</strong><small>Lubumbashi</small>
+   </div>
+   <div class="location-info">
+    <h3>Salle polyvalente Le Colisée</h3>
+    <p>📍 Boulevard Katumbi<br>Référence : Kin Marché / Monté Carlo<br>Lubumbashi, RDC</p>
+    <div class="actions">
+     <a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=8CP6%2B4H8%2C%20Lubumbashi">Voir sur Google Maps</a>
+     <a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=8CP6%2B4H8%2C%20Lubumbashi">Obtenir l'itinéraire</a>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="container">
+  <div class="reveal">
+   <div class="kicker">Votre réponse nous tient à cœur</div>
+   <div class="title">Confirmer votre <em>présence</em></div>
+   <p class="subtitle">Merci de nous faire savoir si vous serez parmi nous.</p>
+  </div>
+
+  <form class="form reveal" id="rsvpForm">
+   <input class="input" id="guestName" required placeholder="Votre nom complet">
+   <select class="select" id="attendance" required>
+    <option value="">Votre réponse</option>
+    <option>Oui, je serai présent(e)</option>
+    <option>Non, je ne pourrai pas être présent(e)</option>
+   </select>
+   <textarea class="textarea" id="guestMessage" placeholder="Un petit mot pour les mariés (facultatif)"></textarea>
+   <button class="submit" type="submit">Envoyer ma confirmation sur WhatsApp</button>
+  </form>
+
+  <div class="contacts">
+   <div class="contact reveal"><div class="contact-name">Antoine</div><div class="contact-number">+243 970 588 757</div><a href="tel:+243970588757">Appeler</a> · <a target="_blank" href="https://wa.me/243970588757">WhatsApp</a></div>
+   <div class="contact reveal"><div class="contact-name">Rabbie</div><div class="contact-number">+243 819 769 349</div><a href="tel:+243819769349">Appeler</a> · <a target="_blank" href="https://wa.me/243819769349">WhatsApp</a></div>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="footer-names">Antoine &amp; Rabbie</div>
+ <p>25 octobre 2026 · Lubumbashi</p>
+</footer>
+
+<script>
+
+const cosmic=document.getElementById('cosmicLove');const colors=['#f2d99e','#d9b56d','#fff8df','#ffffff'];const types=['heart','heart','star','star','diamond'];for(let i=0;i<58;i++){const p=document.createElement('span'),type=types[Math.floor(Math.random()*types.length)];p.className='love-particle '+type;p.style.setProperty('--x',Math.random()*100+'%');p.style.setProperty('--y',(5+Math.random()*90)+'%');p.style.setProperty('--size',(type==='heart'?8+Math.random()*9:2+Math.random()*4)+'px');p.style.setProperty('--dx',(-50+Math.random()*100)+'px');p.style.setProperty('--dur',(5+Math.random()*7)+'s');p.style.setProperty('--delay',(-Math.random()*10)+'s');p.style.setProperty('--pc',colors[Math.floor(Math.random()*colors.length)]);cosmic.appendChild(p)}function loveBurst(x,y){for(let i=0;i<9;i++){const p=document.createElement('span');p.className='love-particle heart';p.style.position='fixed';p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--size',(7+Math.random()*7)+'px');p.style.setProperty('--dx',(-70+Math.random()*140)+'px');p.style.setProperty('--dur','1.4s');p.style.setProperty('--delay','0s');p.style.setProperty('--pc',colors[i%colors.length]);cosmic.appendChild(p);setTimeout(()=>p.remove(),1600)}}window.addEventListener('pointerdown',e=>loveBurst(e.clientX,e.clientY),{passive:true});
+
+const loader=document.getElementById('loader');
+window.addEventListener('load',()=>setTimeout(()=>loader.classList.add('hide'),900));
+
+const sparkleBox=document.getElementById('sparkles');
+for(let i=0;i<65;i++){
+ const s=document.createElement('span');s.className='spark';
+ s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
+ s.style.animationDelay=(Math.random()*4)+'s';s.style.animationDuration=(2+Math.random()*3)+'s';
+ sparkleBox.appendChild(s);
+}
+
+const target=new Date('2026-10-25T18:00:00+02:00').getTime();
+function countdown(){
+ const d=Math.max(0,target-Date.now());
+ document.getElementById('days').textContent=Math.floor(d/86400000);
+ document.getElementById('hours').textContent=String(Math.floor(d/3600000)%24).padStart(2,'0');
+ document.getElementById('minutes').textContent=String(Math.floor(d/60000)%60).padStart(2,'0');
+ document.getElementById('seconds').textContent=String(Math.floor(d/1000)%60).padStart(2,'0');
+}
+countdown();setInterval(countdown,1000);
+
+const music=document.getElementById('music'),musicBtn=document.getElementById('musicBtn');
+music.volume=1;
+let musicStarted=false;
+function playMusic(){
+ if(musicStarted && !music.paused) return;
+ const attempt=music.play();
+ if(attempt && typeof attempt.then==='function'){
+  attempt.then(()=>{musicStarted=true;musicBtn.classList.add('on');}).catch(()=>{
+   // Certains navigateurs mobiles bloquent l'audio automatique avec le son.
+   // Le prochain geste de l'utilisateur relancera immédiatement la musique.
+  });
+ }
+}
+// Tentative automatique dès l'ouverture.
+window.addEventListener('DOMContentLoaded',playMusic);
+window.addEventListener('load',playMusic);
+window.addEventListener('pageshow',playMusic);
+// Secours : dès la première interaction autorisée par le navigateur.
+['pointerdown','touchstart','keydown','scroll'].forEach(ev=>window.addEventListener(ev,playMusic,{once:true,passive:true}));
+musicBtn.addEventListener('click',()=>{
+ if(music.paused){ musicStarted=false; playMusic(); }
+ else {music.pause();musicStarted=false;musicBtn.classList.remove('on')}
+});
+
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting) entry.target.classList.add('show');
+ });
+},{threshold:.13});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+document.getElementById('rsvpForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('guestName').value.trim();
+ const attendance=document.getElementById('attendance').value;
+ const message=document.getElementById('guestMessage').value.trim();
+ const txt=`Bonjour Antoine et Rabbie !\n\nJe suis ${name}.\n${attendance}.\n${message||'Au plaisir de célébrer avec vous !'}`;
+ window.open('https://wa.me/243970588757?text='+encodeURIComponent(txt),'_blank');
+});
+</script>
+</body>
+</html>
